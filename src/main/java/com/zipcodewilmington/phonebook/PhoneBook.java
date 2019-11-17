@@ -9,19 +9,17 @@ public class PhoneBook {
 
     private Map<String,List<String>> phoneBook;
 
-    public PhoneBook(Map<String, List<String>> map) {
-        this.phoneBook = map;
+    public PhoneBook(Map<String, List<String>> phoneBook) {
+        this.phoneBook = phoneBook;
     }
 
     public PhoneBook() {
 
-        this.phoneBook = new LinkedHashMap<>();
+        phoneBook = new LinkedHashMap<>();
     }
 
     public void add(String name, String phoneNumber) {
-        ArrayList<String> pNumbers = new ArrayList<>();
-        pNumbers.add(phoneNumber);
-        phoneBook.put(name, pNumbers);
+        phoneBook.put(name, Arrays.asList(phoneNumber));
     }
 
     public void addAll(String name, String... phoneNumbers) {
@@ -29,7 +27,6 @@ public class PhoneBook {
     }
 
     public void remove(String name) {
-        if(phoneBook.containsKey(name))
         phoneBook.remove(name);
     }
 
@@ -44,14 +41,13 @@ public class PhoneBook {
     }
 
     public String reverseLookup(String phoneNumber)  {
-        String result = "";
 
-        for (Map.Entry<String, List<String>> entry : phoneBook.entrySet()) {
-            if (entry.getValue().contains(phoneNumber)) {
-                result = entry.getKey();
+        for(String s : phoneBook.keySet()) {
+            if (phoneBook.get(s).contains(phoneNumber)) {
+                return s;
             }
         }
-        return result;
+        return null;
     }
 
     public List<String> getAllContactNames() {
